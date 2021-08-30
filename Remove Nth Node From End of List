@@ -1,0 +1,42 @@
+/*
+ *
+ * Program to Remove Nth Node From End of List
+ * 
+ * Aniket, Roll_No : 1910990836
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
+    struct ListNode *start = malloc(sizeof(struct ListNode));
+    start -> next = head;
+    struct ListNode *fast = start;
+    struct ListNode *slow = start;
+    
+    
+    for(int i = 1; i <= n; i++)
+    {
+        fast = fast -> next;
+    }
+    
+    // to make prev pointer to point
+    // to previous node of the nth node from the last
+    while(fast -> next != NULL)
+    {
+        fast = fast -> next;
+        slow = slow -> next;
+    }
+    
+    // making link between previous and next 
+    // node of the nth node from the end
+    slow -> next = slow -> next -> next;
+    
+    return start -> next;
+}
