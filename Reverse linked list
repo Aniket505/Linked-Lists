@@ -1,0 +1,79 @@
+/*
+ *
+ * Program to Reverse a sublist of a Linked List
+ * 
+ * Aniket, Roll_No : 1910990836
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+struct ListNode* reverse(struct ListNode* head)
+{
+    struct ListNode* prev = NULL;   
+    struct ListNode* curr = head;
+    struct ListNode* temp = NULL;
+    while (curr) {
+        temp = curr -> next;
+        curr -> next = prev;
+        prev = curr;
+        curr = temp;
+    }
+    return prev;
+}
+
+struct ListNode* reverseBetween(struct ListNode* head, int left, int right){
+    struct ListNode* rev_prev = NULL;
+    struct ListNode* rev = NULL;
+    struct ListNode* revend_next = NULL;
+    struct ListNode* rev_end = NULL;
+    struct ListNode* curr = head;
+    int i = 1;
+    
+    if( left == right )
+        return head;
+    
+    while(curr != NULL && i <= right)
+    {
+        if(i < left)
+            rev_prev = curr;
+        
+        if(i == left)
+            rev = curr;
+        
+        if(i == right)
+        {
+            rev_end = curr;
+            
+            // storing the right's next node
+            revend_next = curr -> next;
+        }
+        
+        curr = curr -> next;
+        i++;
+    }
+    
+    // pointing right node to NULL
+    rev_end -> next = NULL;
+    
+    // reverse linked list starting with reverse
+    rev_end = reverse(rev);
+    
+    // if rev_prev is not pointing to head
+    if(rev_prev != NULL)
+        rev_prev -> next = rev_end;
+    
+    // if rev_prev is pointing to head
+    else
+        head = rev_end;
+    
+    // creating link between reversed and remaining list
+    rev -> next = revend_next;
+    
+    return head;
+}
