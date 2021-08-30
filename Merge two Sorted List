@@ -1,0 +1,78 @@
+/*
+ *
+ * Program to Merge Two Sorted Lists
+ * 
+ * Aniket, Roll_No : 1910990836
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2){
+    struct ListNode* p = NULL;
+    struct ListNode* head;
+
+    p = (struct ListNode*)malloc(sizeof(struct ListNode));
+
+    // if list 1 is empty
+    if (l1 == NULL) 
+    {
+        p = l2;
+        return p;
+    }
+    
+    //if list 2 is empty
+    if (l2 == NULL) 
+    {
+        p = l1;
+        return p;
+    }    
+
+    if (l1 -> val <= l2 -> val) 
+    {
+        head = l1;
+    } 
+    else 
+    {
+        head = l2;
+    }
+
+    // merging the lists
+    while (l1 != NULL && l2 != NULL) 
+    {
+        if (l1 -> val <= l2 -> val) 
+        {             
+            p -> next = l1;
+            l1 = l1 -> next;
+        } 
+        else 
+        {            
+            p -> next = l2;
+            l2 = l2 -> next;
+        
+        }
+        p = p -> next;
+    }
+    
+    // if list 1 is not traversed fully
+    // add remainging list to the end 
+    // of merged list
+    if (l1 != NULL) {
+        p -> next = l1;
+    }
+    
+    // if list 2 is not traversed fully
+    // add remainging list to the end 
+    // of merged list
+    if (l2 != NULL) {
+        p -> next = l2;
+    }
+    
+    return head;
+}
