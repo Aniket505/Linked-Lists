@@ -1,0 +1,49 @@
+/*
+ *
+ * Program to check Singly Linked List Is Palindrome or not
+ * 
+ * Aniket, Roll_No : 1910990836
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+bool isPalindrome(struct ListNode* head){
+    struct ListNode *slow = head;
+    struct ListNode *fast = head;
+    struct ListNode *prev = NULL;
+    struct ListNode *temp = slow;
+    
+    // dividing linked list into two parts
+    // and reversing the first part
+    while(fast != NULL && fast -> next != NULL)
+    {
+        fast = fast -> next -> next;
+        temp = slow;
+        slow = slow -> next;
+        temp -> next = prev;
+        prev = temp;
+    }
+    
+    // if the linked list is of odd length
+    // move the slow pointer by one
+    if(fast != NULL)
+    {
+        slow = slow -> next;
+    }
+    
+    while(prev != NULL && slow != NULL)
+    {
+        if(prev -> val != slow -> val)
+            return false;
+        prev = prev -> next;
+        slow = slow -> next;
+    }
+    return true;
+}
