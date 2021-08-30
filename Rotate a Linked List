@@ -1,0 +1,62 @@
+/*
+ *
+ * Program to Rotate List Clockwise
+ * 
+ * Aniket, Roll_No : 1910990836
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* rotateRight(struct ListNode* head, int k){
+    if(head == NULL)
+        return head;
+    
+    struct ListNode* p = head;
+    struct ListNode* curr = head;
+    int len = 1;
+    
+    // finding the length of linked list
+    while(p -> next != NULL)
+    {
+        len++;
+        p = p -> next;
+    }
+    
+    if(k == 0 || k == len)
+        return head;
+    
+    // if k is > than length of the list
+    if(k > len)
+        k = k % len;
+    
+    //to convert it into left rotation
+    k = len - k;
+    
+    int i = 1;
+    
+    while(curr != NULL && i < k)
+    {
+        curr = curr -> next;
+        i++;
+    }
+    
+    struct ListNode* k_node = curr;
+    
+    //Point next of last node to head
+    p -> next = head;
+    
+    //Point head to kth next node
+    head = k_node -> next;
+    
+    // Point next of kth node to NULL
+    k_node -> next = NULL;
+    
+    return head;
+}
