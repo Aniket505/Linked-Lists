@@ -1,0 +1,47 @@
+/*
+ *
+ * Program to Return the node from where cycle begins, if cycle exists, in the singly linked list
+ * 
+ * Aniket, Roll_No : 1910990836
+*/
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode *detectCycle(struct ListNode *head) {
+    struct ListNode *fast;
+    struct ListNode *slow;
+    slow = fast = head;
+    
+    while(fast != NULL && fast -> next != NULL)
+    {
+        // fast pointer moves by 2
+        fast = fast -> next -> next;
+        
+        // slow pointer moves by 1
+        slow = slow -> next;
+        
+        // when slow and fast pointer meets 
+        // it means cycle exist is the list
+        if(slow == fast)
+        {
+            // point slow to head
+            slow = head;
+            while(1)
+            {
+                // when slow reaches fast 
+                // from that node cycle starts
+                if(slow == fast)
+                    return slow;
+                slow = slow -> next;
+                fast = fast -> next;
+            }
+        }
+    }
+    return NULL;
+}
