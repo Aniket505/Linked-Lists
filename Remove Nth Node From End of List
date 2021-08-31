@@ -32,7 +32,7 @@ struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
         slow = slow -> next;
     }
     
-    // making link between previous and next 
+    // creating link between previous and next 
     // node of the nth node from the end
     slow -> next = slow -> next -> next;
     
