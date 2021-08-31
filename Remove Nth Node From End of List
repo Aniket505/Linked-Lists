@@ -26,8 +26,6 @@ struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
         fast = fast -> next;
     }
     
-    // to make prev pointer to point
-    // to previous node of the nth node from the last
     while(fast -> next != NULL)
     {
         fast = fast -> next;
